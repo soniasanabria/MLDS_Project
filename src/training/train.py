@@ -25,10 +25,11 @@ def train_model (X_train, y_train, C, gamma, X_test):
                     gamma = 10,
                     class_weight=class_weights_dict)  
 
+    
     wf_rbf_svm.fit(X_train, y_train)
     y_pred = wf_rbf_svm.predict(X_test)
-    return y_pred
-
+    return wf_rbf_svm, y_pred
+    
 
 def list_confusion_matrix(df, y_test, y_pred):
     
@@ -50,3 +51,7 @@ def classification_report(y_test, y_pred):
     return class_report
 
 
+def serialize_model(model):
+    filename = 'svm_model.pkl'
+    import pickle
+    pickle.dump(model, open(filename, 'wb'))
